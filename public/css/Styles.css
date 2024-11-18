@@ -37,45 +37,43 @@ div {
 
   .ports-visited {
     list-style: disc inside;  /* Remove bullet points */
-    padding: 20px;        /* Remove default padding */
-    margin: 0;         /* Remove default margin */
+    padding: 20px;        
+    margin: 0;        
     display: flex;
     flex-direction: column; /* Make items stack vertically */
   }
 
   .ports-section {
-    text-align: left; /* Align the heading to the left */
-    width: fit-content; /* Make the section take up only the necessary width */
-    margin-left: 20px;  /* Add margin to the left */
+    text-align: left; 
+    width: fit-content; 
+    margin-left: 20px;  
      margin-bottom: 20px;
 }
 
 .ports-visited li a {
-    color: #007bff;     /* Example blue color */
-    text-decoration: none; /* Removes underlines */
+    color: #007bff;    
+    text-decoration: none; 
     
   }
 
   .ports-visited li a:hover {
-    text-decoration: underline; /* Adds underline on hover */
+    text-decoration: underline; /* Adds underline to hover */
   }
 
 .content {
-    /* Existing styles... */
-    display: flex; /* Enable flexbox for the content area */
+    display: flex; 
 }
 
 .center {
-    /* Existing styles... */
-    flex: 1;  /* Allow the center content to take up available space */
+    flex: 1;  
 }
 
 .image-placeholder {
     width: 300px; 
     height: 400px; 
-    margin-right: 20px;  /* Add margin to the left */
+    margin-right: 20px; 
     margin-bottom: 20px; 
-    background-color: lightgray; /* Add this line */
+    background-color: lightgray; 
     border: 1px dashed #ccc;
 }
 
@@ -86,19 +84,19 @@ div {
 }
 
 .command-history {
-    text-align: center; /* Center the list */
-    margin-top: 20px;   /* Add some space above */
-    border-left: 2px solid navy; /* Add a vertical line */
+    text-align: center;
+    margin-top: 20px;   
+    border-left: 2px solid navy;
     padding-left: 20px;   
   }
-  .command-history dt a { /* Targets links within <dt> elements */
-    color: #007bff;        /* Example blue color */
-    text-decoration: none; /* Removes underlines */
+  .command-history dt a { 
+    color: #007bff;       
+    text-decoration: none; 
   }
   
   .command-history dt {
     font-weight: bold; 
-    margin-bottom: 5px; /* Add space below each command */
+    margin-bottom: 5px;
   }
 
   .command-history dt a:hover { /* Hover effect */
@@ -106,7 +104,6 @@ div {
   }
 
 li { 
-    /* float: left; */ /* Removed float */
     padding: 0 10px 0 10px;
     width: 50px;
 }
@@ -130,20 +127,20 @@ footer {
 
 .footer-content {
     display: flex;
-    justify-content: space-around; /* Distribute space around items */
-    align-items: center;     /* Vertically align items */
-    padding: 20px;            /* Add some padding */
+    justify-content: space-around; 
+    align-items: center;     
+    padding: 20px;           
   }
 
   footer nav ul {
     list-style: none;
     margin: 0;
     padding: 20px;
-    display: flex; /* Add this line */
+    display: flex;
   }
 
   footer nav ul li {
-    margin-right: 20px;  /* Add some space between the links */
+    margin-right: 20px;  
   }
 
   .footer-content p {
