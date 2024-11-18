@@ -1,0 +1,20 @@
+{
+  "name": "Navy memorial",
+  "version": "1.0.0",
+  "description": "A website to show events and memories from my Navy career",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "nodemon ./server"
+  },
+  "keywords": [],
+  "author": "Daniel Betancourt",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
