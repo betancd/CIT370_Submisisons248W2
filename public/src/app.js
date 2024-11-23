@@ -29,12 +29,3 @@ const doRegister = function(e) {
 const doLogout = function(e) {
     e.preventDefault();
 };
-
-
-
-
-
-
-
-
-
