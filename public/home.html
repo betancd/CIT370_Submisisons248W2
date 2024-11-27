@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./css/flexbox.css" />
+  <link rel="stylesheet" href="./css/header.css" />
+  <link rel="stylesheet" href="./css/main.css" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <title>Home</title>
+</head>
+<body>
+  <div class="main wrapper">
+    <header>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="./about.html">About</a></li>
+        </ul>
+        <div>
+          <a id="login" href="/login.html">Login</a>
+          <a id="logout" href="" onclick="doLogout(event)">Logout</a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="content">
+      <div id="countries">
+        <div>Loading...</div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Author: <a href="https://github.com/betancd">Daniel Betancourt</a></p>
+    </footer>
+  </div>
+  <script src="./src/api.config.js" type="module"></script>
+  <script src="./src/simple-storage.js" type="module"></script>
+  <script src="./src/service-helpers.js" type="module"></script>
+  <script src="./src/auth.service.js" type="module"></script>
+  <script src="./src/countries.service.js" type="module"></script>
+  <script src="./src/build-countries-list.js" type="module"></script>
+  <script src="./src/app.js" type="module"></script>
+  <script type="module">
+    import buildCountriesList from './src/build-countries-list.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOMContentLoaded event fired, calling buildCountriesList');
+      buildCountriesList();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+.country-item-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .country-checkbox {
+    width: 25px;
+    display: flex;
+  }
+  
+  .country-name,
+  .country-status {
+    width: 200px;
+  }
