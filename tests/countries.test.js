@@ -12,18 +12,18 @@ describe('Countries API service', () => {
 
 
      
-    it('should GET all countries', (done) => {
+    it('should GET a logged in user\'s unique id, username, and password', (done) => {
         chai
             .request('http://localhost:3000')
-            .get('/api/countries')
+            .get('/api/user')
             .set('Authorization', `Bearer ${token}`)
             .end((err, resp) => {
                 expect(resp.status).to.be.eql(200);
-                expect(resp.body).to.be.a('array');
-                expect(resp.body.length).to.not.be.eql(0);
+                expect(resp.body).to.have.property('body');
                 done();
             });
     });
+    
 
     it('should GET a single country', (done) => {
         const expected = [

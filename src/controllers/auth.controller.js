@@ -20,7 +20,6 @@ exports.register = async (req, res) => {
 
   // establish a connection
   const con = await connection().catch((err) => {
-    console.error("Error connecting to the database:", err);
     throw err;
   });
 
@@ -28,23 +27,23 @@ exports.register = async (req, res) => {
   const user = await query(con, GET_ME_BY_USERNAME, [req.body.username]).catch(
     (err) => {
       res.status(500);
-      res.send({ msg: 'Could not retrieve user.' });
+      res.json({ msg: 'Could not retrieve user.' });
     }
   );
 
   // if we get one result back
   if (user.length === 1) {
-    res.status(403).send({ msg: 'User already exists!' });
+    res.status(403).json({ msg: 'User already exists!' });
   } else {
     // add new user
     const result = await query(con, INSERT_NEW_USER, params).catch((err) => {
       //   stop registeration
       res
         .status(500)
-        .send({ msg: 'Could not register user. Please try again later.' });
+        .json({ msg: 'Could not register user. Please try again later.' });
     });
 
-    res.send({ msg: 'New user created!' });
+    res.json({ msg: 'New user created!' });
   }
 };
 
@@ -59,7 +58,7 @@ exports.login = async (req, res) => {
     req.body.username,
   ]).catch((err) => {
     res.status(500);
-    res.send({ msg: 'Could not retrieve user.' });
+    res.json({ msg: 'Could not retrieve user.' });
   });
 
   // if the user exists
@@ -72,7 +71,7 @@ exports.login = async (req, res) => {
       });
 
     if (!validPass) {
-      res.status(400).send({ msg: 'Invalid password!' });
+      res.status(400).json({ msg: 'Invalid password!' });
     }
     // create token
     const accessToken = generateAccessToken(user[0].user_id, {
@@ -87,7 +86,7 @@ exports.login = async (req, res) => {
 
     res
       .header('access_token', accessToken) // ex.: { 'aut-token': 'lksnenha0en4tnoaeiwnlgn3o4i'}
-      .send({
+      .json({
         auth: true,
         msg: 'Logged in!',
         token_type: 'bearer',
@@ -105,21 +104,21 @@ exports.token = (req, res) => {
   if (!refreshToken) {
     res
       .status(401)
-      .send({ auth: false, msg: 'Access Denied. No token provided.' });
+      .json({ auth: false, msg: 'Access Denied. No token provided.' });
   }
 
   // stop refresh is refresh token invalid
   if (!refreshTokens.includes(refreshToken)) {
-    res.status(403).send({ msg: 'Invalid Refresh Token' });
+    res.status(403).json({ msg: 'Invalid Refresh Token' });
   }
 
   const verified = verifyToken(refreshToken, jwtconfig.refresh, req, res);
 
   if (verified) {
-    const accessToken = generateToken(user[0].user_id, { expiresIn: 86400 });
+    const accessToken = generateAccessToken(user[0].user_id, { expiresIn: 86400 });
     res
       .header('access_token', accessToken) // ex.: { 'aut-token': 'lksnenha0en4tnoaeiwnlgn3o4i'}
-      .send({
+      .json({
         auth: true,
         msg: 'Logged in!',
         token_type: 'bearer',
@@ -128,14 +127,14 @@ exports.token = (req, res) => {
         refresh_token: refreshToken,
       });
   }
-  res.status(403).send({ msg: 'Invalid Token' });
+  res.status(403).json({ msg: 'Invalid Token' });
 };
 
 exports.logout = (req, res) => {
   const refreshToken = req.body.token;
   refreshTokens = refreshTokens.filter((t) => t !== refreshToken);
 
-  res.send({ msg: 'Logout successful' });
+  res.json({ msg: 'Logout successful' });
 };
 
 
@@ -146,120 +145,3 @@ exports.logout = (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-// const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcryptjs');
-
-// const con = require('../db-config');
-// const jwtconfig = require('../jwt-config');
-// const authQueries = require('../queries/auth.queries');
-// const userQueries = require('../queries/user.queries');
-
-// exports.registerUser = function(req, res) {
-// if(!req.body.password) {
-//     res.status(500);
-//     res.json({msg: 'Password cannot be empty!'});
-// }
-
-//     const passwordHash = bcrypt.hashSync(req.body.password);
-
-//     con.query(
-//         authQueries.INSERT_NEW_USER,
-//         [req.body.username, req.body.email, passwordHash],
-//         function(err, result) {
-//             if (err) {
-//                 //stop registration
-//                 console.log(err);
-//                 res
-//                     .status(500)
-//                     .send({ msg: 'Could not register user. Please try again later.' });
-//             }
-
-//             con.query(userQueries.GET_ME_BY_USERNAME, [req.body.username], function(
-//                 err,
-//                 user
-//             ) {
-//                 if (err) {
-//                     res.status(500);
-//                     res.send({ msg: 'Could not retrieve user.' });
-//                 }
-//                 console.log(user);
-//                 res.send(user);
-//             });
-//         }
-//     );
-// };
-
-// exports.login = function(req, res) {
-//     // check user exits
-//     con.query(
-//         userQueries.GET_ME_BY_USERNAME_WITH_PASSWORD,
-//         [req.body.username],
-//         function(err, user) {
-//             if (err) {
-//                 res.status(500);
-//                 res.send({ msg: 'Could not retrieve user.'});
-//             }
-            
-//             console.log(user);
-//             // validate entered password from database saved passowrd
-//             bcrypt
-//                 .compare(req.body.password, user[0].password)
-//                 .then(function(validPass) {
-//                     if (!validPass) {
-//                         res.status(400).send({ msg: 'Invalid password!'});
-//                     }
-//                     // create token
-//                     const token = jwt.sign({ id: user[0].user_id }, jwtconfig.secret);
-//                     res 
-//                         .header('auth-token', token)
-//                         .send({ auth: true, msg: 'Logged in!' });
-//                 })
-//                 .catch(console.log);    
-//         }
-//     );
-// };
-
-// exports.updateUser = function(req, res) {
-//     // check user exists
-//     console.log(req.user);
-//     con.query(
-//         userQueries.GET_ME_BY_USER_ID_WITH_PASSWORD,
-//         [req.user.id],
-//         function(err, user) {
-//             console.log(err, user);
-//             if (err) {
-//                 res.status(500);
-//                 res.send({ msg: 'Could not retrieve user.' }); 
-//             }
-
-//             console.log(user);
-//             console.log(req.body.password);
-//             console.log(req.body.username);
-
-//             const passwordHash = bcrypt.hashSync(req.body.password);
-
-//             // perform update
-//             con.query( 
-//                 userQueries.UPDATE_USER,
-//                 [req.body.username, req.body.email, passwordHash, user[0].id],
-//                 function(err, result) {
-//                     if(err) {
-//                         console.log(err);
-//                         res.status(500).send({ msg: 'Could not update user settings.' });
-//                     }
-
-//                     console.log(result);
-//                     res.json({ msg: 'Updated successfully! ' });
-//                 }
-//             );
-//         }
-//     );
-// };

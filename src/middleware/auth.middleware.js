@@ -1,46 +1,15 @@
-// const jwt = require('jsonwebtoken');
-// const jwtconfig = require('../jwt-config');
-
-// module.exports = function(req, res, next) {
-//     const token = req.headers['auth-token'];
-
-//     if(!token) {
-//         // stop user auth validation
-//         res.status(401).send({ auth: false, msg: 'Access Denied!' });
-//     }
-
-//     try {
-//         // return the user's id when creating token
-//         const verified = jwt.verify(token, jwtconfig.secret);
-//         req.user = verified; 
-//         next();
-//     } catch (err) {
-//         res.status(400).send({ msg: 'Invalid Token' });
-//     }
-// };
-
 const { jwtconfig, verifyToken } = require('../utils/jwt-helpers');
 
 module.exports = (req, res, next) => {
   const authHeader = req.headers['auth-token'] || req.headers['authorization'];
 
   if (!authHeader) {
-    return res.status(401).send({ auth: false, msg: 'Access Denied! No Token provided.' });    
+    return res
+    .status(401)
+    .json({ auth: false, msg: 'Access Denied! No Token provided.' });    
   }
 
-  const tokenParts = authHeader.split(' ');
-  if(tokenParts.length !== 2 || tokenParts[0] !== 'Bearer') {
-    return res.status(401).send({ auth: false, msg: 'Access Denied. Malformed token.' });
-  }
-
-  const accessToken = tokenParts[1];
-
-  if (!accessToken) {
-    // stop user auth validation
-    res
-      .status(401)
-      .send({ auth: false, msg: 'Access Denied. No token provided.' });
-  }
+  const accessToken = authHeader.split(' ')[1];
 
   try {
     // verify the token is correct

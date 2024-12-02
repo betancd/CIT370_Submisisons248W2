@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 
 
 const authRoutes = require ('./routes/auth.routes');
-const countriesRoutes = require('./routes/countries.routes');
 const userRoutes = require ('./routes/user.routes');
+const countriesRoutes = require('./routes/countries.routes');
 const { error404, error500 } = require('./middleware/errors.middleware');
 
 const app = express();
@@ -16,7 +16,7 @@ const env = process.env.NODE_ENV;
 
 // Middleware - logs server requests to console
 if (env !== 'test') {
-app.use(logger(logLevel));
+  app.use(logger(logLevel));
 }
 
 // Middleware - parses incoming requests data (https://github.com/expressjs/body-parser)

@@ -10,23 +10,23 @@ const {
 
 exports.getMe = async (req, res) => {
   // verify valid token
-  const decoded = req.user; // {id: 1, iat: wlenfwekl, expiredIn: 9174323 }
+  const user = req.user; // {id: 1, iat: wlenfwekl, expiredIn: 9174323 }
 
   // take result of middleware check
-  if (decoded.id) {
+  if (user.id) {
     // establish a connection
     const con = await connection().catch((err) => {
       throw err;
     });
 
-    const user = await query(con, GET_ME_BY_USER_ID, [decoded.id]).catch(
+    const user = await query(con, GET_ME_BY_USER_ID, [user.id]).catch(
       (err) => {
-        res.status(500).send({ msg: 'Could not find the user.' });
+        res.status(500).json({ msg: 'Could not find the user.' });
       }
     );
 
     if (!user.length) {
-      res.status(400).send({ msg: 'No user found.' });
+      res.status(400).json({ msg: 'No user found.' });
     }
     res.status(200).send(user);
   }
@@ -43,7 +43,7 @@ exports.updateMe = async function (req, res) {
     req.user.id,
   ]).catch((err) => {
     res.status(500);
-    res.send({ msg: 'Could not retrieve user.' });
+    res.json({ msg: 'Could not retrieve user.' });
   });
 
   // checked for password changed
@@ -75,38 +75,3 @@ exports.updateMe = async function (req, res) {
 };
 
 
-
-
-
-// const jwt = require('jsonwebtoken');
-
-// const con = require('../db-config');
-// const jwtconfig = require('../jwt-config');
-// const queries = require('../queries/user.queries');
-
-// exports.getMe = function(req, res) {
-//     const token = req.headers['auth-token'];
-
-//     if (!token) {
-//         // Stop user auth validation
-//         res.status(401).send({ auth: false, msg: 'No token provided.' });
-//     }
-
-//     jwt.verify(token, jwtconfig.secret, function(err, decoded) {
-//         if (err) {
-//             res
-//                 .status(500)
-//                 .send({ auth: false, message: 'Failed to authenticate token.' });
-//         }
-
-//         con.query(queries.GET_ME_BY_USER_ID, [decoded.id], function(err, user) {
-//             if (err) {
-//                 res.status(500).send({ msg: 'Could not find the user' });
-//             }
-//             if (!user) {
-//                 res.status(400).send({ msg: 'No user found.' });
-//             }
-//             res.status(200).send(user);
-//         })
-//     });
-// };
