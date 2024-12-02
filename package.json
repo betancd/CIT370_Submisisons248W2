@@ -1,0 +1,18 @@
+{
+  "name": "week-3",
+  "version": "1.0.0",
+  "description": "Serving our website to a browser and extend our website's capabilities with an API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "nodemon ./server"
+  },
+  "keywords": [],
+  "author": "Daniel Betancourt",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "nodemon": "^2.0.4"
+  }
+}
+
