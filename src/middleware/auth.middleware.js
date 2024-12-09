@@ -1,22 +1,25 @@
-const { jwtconfig, verifyToken } = require('../utils/jwt-helpers');
+const jwt = require('jsonwebtoken');
 
-module.exports = (req, res, next) => {
-  const authHeader = req.headers['auth-token'] || req.headers['authorization'];
+module.exports = function(req, res, next) {
+  const authHeader = req.header('Authorization');
 
   if (!authHeader) {
-    return res
-    .status(401)
-    .json({ auth: false, msg: 'Access Denied! No Token provided.' });    
+    return res.status(401).json({ msg: 'No token, authorization denied' });
   }
 
-  const accessToken = authHeader.split(' ')[1];
+  const token = authHeader.split(' ')[1];
 
   try {
-    // verify the token is correct
-    const user = verifyToken(accessToken, jwtconfig.access, req, res); // {id: 1, iat: wlenfwekl, expiredIn: 9174323 }
-    req.user = user;
+    // Verify token and extract payload
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+
+    // Remove or comment out the debug statement below
+    // console.log('Decoded user:', req.user);
+
     next();
   } catch (err) {
-    res.status(403).send({ msg: 'Invalid Token' });
+    console.error('Token verification error:', err); // It's good to keep this error log for future debugging
+    res.status(401).json({ msg: 'Token is not valid' });
   }
 };

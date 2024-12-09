@@ -1,4 +1,3 @@
-
 exports.CREATE_COUNTRIES_TABLE = `CREATE TABLE IF NOT EXISTS countries(
   Countryid INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
@@ -23,11 +22,11 @@ exports.INSERT_COUNTRY = (userId, Nation) => {
   return `INSERT INTO countries (user_id, nation) VALUES (${userId}, '${escapedNation}')`;
 };
 
-
-
 exports.UPDATE_COUNTRY = (userId, countryId, newValues) =>
-`UPDATE countries SET ${newValues} WHERE user_id = ${userId} AND Countryid = ${countryId}`;
+  `UPDATE countries SET ${newValues} WHERE user_id = ${userId} AND Countryid = ${countryId}`;
 
-// Delete a country by id
 exports.DELETE_COUNTRY = (userId, countryId) =>
-`DELETE FROM countries WHERE user_id = ${userId} AND Countryid = ${countryId}`;
+  `DELETE FROM countries WHERE user_id = ${userId} AND Countryid = ${countryId}`;
+
+// Get all ports visited (public access)
+exports.ALL_PORTS = () => `SELECT * FROM countries`;  // Assuming you have a ports_visited table

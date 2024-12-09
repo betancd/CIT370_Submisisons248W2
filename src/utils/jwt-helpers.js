@@ -1,43 +1,30 @@
 const jwt = require('jsonwebtoken');
 
-// jwt secrets for initial token and refresh tokens
-const jwtconfig = {
-  access: 'reallysecretaccesssecret',
-  refresh: 'reallysecretrefreshsecret',
-};
-
-// store for refresh tokens created
 const refreshTokens = [];
 
-/**
- * expireIn is an object that can be a string or number in seconds
- *
- * usage: {@link https://www.npmjs.com/package/jsonwebtoken}
- *
- * example:
- *  { expiresIn: 86400 } for 24 hours in seconds
- */
-// create a new auth token
-const generateAccessToken = (id, expiresIn) =>
-  jwt.sign({ id }, jwtconfig.access, expiresIn);
+// Function to generate an access token
+const generateAccessToken = (userId, options = {}) => {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, options);
+};
 
-// create a new re-auth token
-const generateRefreshToken = (id, expiresIn) =>
-  jwt.sign({ id }, jwtconfig.refresh, expiresIn);
+// Function to generate a refresh token
+const generateRefreshToken = (userId, options = {}) => {
+  return jwt.sign({ id: userId }, process.env.JWT_REFRESH_SECRET, options);
+};
 
-// check token validity
+// Function to verify a token
 const verifyToken = (token, secret, req, res) => {
   try {
-    return jwt.verify(token, secret);
-  } catch {
-    res.status(500).send({ auth: false, message: 'Invalid token.' });
+    const decoded = jwt.verify(token, secret);
+    return decoded;
+  } catch (err) {
+    throw new Error('Token is not valid');
   }
 };
 
 module.exports = {
-  jwtconfig,
   refreshTokens,
   generateAccessToken,
   generateRefreshToken,
-  verifyToken,
+  verifyToken
 };
