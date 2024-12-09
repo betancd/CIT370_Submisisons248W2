@@ -1,79 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=devicewidth, initial-scale=1.0" />
-        <link rel="stylesheet" href="./css/styles.css" />
-   
-        <title>Home</title>
-    </head>
-    <body>
-        <div class="main wrapper">
-            <header>
-                <nav>
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="./about.html"></a></li>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Home</title>
+</head>
+<body>
+    <div class="main wrapper">
+        <header class="bg-dark text-light py-3">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
+                        <li class="nav-item"><button class="btn btn-danger" id="logoutButton">Logout</button></li>
                     </ul>
                 </nav>
-            </header>
-
-            <header>
-                <nav> 
-                    </nav>
-                <h1 style="text-align: center; font-weight: bold; color: white;">My Naval Career</h1>
-            </header>
-
-
-            <div class="ports-section">  
-                    <h3> Ports Visited </h3>
-                        <ul class="ports-visited">
-                            <li><a href="https://www.tourismcambodia.com/" target="_blank">Cambodia</a></li>
-                            <li><a href="https://www.visitsingapore.com/" target="_blank">Singapore</a></li>
-                            <li><a href="https://www.visitdubai.com/" target="_blank">U.A.E.</a></li>
-                            <li><a href="https://www.btea.bh/" target="_blank">Bahrain</a></li>
-                            <li><a href="https://www.discoverhongkong.com/" target="_blank">Hong Kong</a></li>
-                            <li><a href="https://www.visitguam.com/" target="_blank">Guam</a></li>
-                            <li><a href="https://www.visitjordan.com/" target="_blank">Jordan</a></li>
-                            <li><a href="https://israel.travel/" target="_blank">Israel</a></li>
-                            <li><a href="https://www.japan.travel/en/" target="_blank">Japan</a></li>
-                            <li><a href="https://www.australia.com/" target="_blank">Australia</a></li>
-                            <li><a href="https://www.gohawaii.com/" target="_blank">Hawaii</a></li>
-                            <li><a href="https://www.tourismthailand.org/" target="_blank">Thailand</a></li>
-                        </ul> 
+                <h1 class="text-center fw-bold">My Naval Career</h1>
             </div>
+        </header>
 
-            <div class="center">
-                <dl class="command-history">
-                  <dt>Joined:</dt> <dd>2001</dd>
-                  <dt><a href="https://www.airpac.navy.mil/Organization/USS-Nimitz-CVN-68/" target="_blank">USS Nimitz - CVN68</a></dt> <dd>2002 - 2007</dd>
-                  <dt><a href="https://www.cnrc.navy.mil/Rocky-Mountain/" target="_blank">Navy Recruiting District Denver</a></dt> <dd>2007-2010</dd>
-                  <dt><a href="https://www.surfpac.navy.mil/lpd18/" target="_blank">USS New Orleans - LPD18</a></dt> <dd>2010-2015</dd>
-                  <dt><a href="https://www.cnrc.navy.mil/Pacific-Northwest/" target="_blank">Navy Talent Acquisition Group Pacific Northwest</a></dt> <dd>2015-2019</dd>
-                  <dt><a href="https://www.surfpac.navy.mil/lpd27/" target="_blank">USS Portland - LPD 27</a></dt> <dd>2019-2024</dd>
-                  <dt>Retired:</dt> <dd>2024</dd>
-                </dl>
-              </div>
-
-            <div class="content">
-                <div class="center"> 
-                    </div>
-            
-                <div class="image-placeholder">
-                    <img src="/images/R.png" alt="Photo placeholder"> 
+        <div class="container mt-4">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <form id="addCountryForm">
+                        <div class="form-group">
+                            <label for="addCountryName">Country Name:</label>
+                            <input type="text" class="form-control" id="addCountryName" placeholder="Country Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addCountryStatus">Status:</label>
+                            <input type="text" class="form-control" id="addCountryStatus" placeholder="Status" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addCountryVisitDate">Visit Date:</label>
+                            <input type="date" class="form-control" id="addCountryVisitDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Add Country</button>
+                    </form>
                 </div>
             </div>
-
-            <footer>
-                <div class="footer-content">
-                  <nav>
-                    <ul>
-                      <li><a href="/">Home</a></li>
-                      <li><a href="/about.html">About</a></li>
-                    </ul>
-                  </nav>
-                  <p style="color: whitesmoke">Author: <a href="https://github.com/betancd">Daniel Betancourt</a></p>
-                </div>
-              </footer>
+            <div id="countriesContainer" class="row"></div>
         </div>
-    </body>
+
+        <footer class="bg-dark text-light py-3 mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <nav class="navbar navbar-expand-lg navbar-dark">
+                            <ul class="navbar-nav">
+                                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p>Author: <a href="https://github.com/betancd">Daniel Betancourt</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Edit Country Modal -->
+    <div class="modal fade" id="editCountryModal" tabindex="-1" aria-labelledby="editCountryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCountryModalLabel">Edit Country</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCountryForm">
+                        <div class="form-group">
+                            <label for="editCountryName">Country Name:</label>
+                            <input type="text" class="form-control" id="editCountryName" placeholder="Country Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="editCountryStatus">Status:</label>
+                            <input type="text" class="form-control" id="editCountryStatus" placeholder="Status">
+                        </div>
+                        <div class="form-group">
+                            <label for="editCountryVisitDate">Visit Date:</label>
+                            <input type="date" class="form-control" id="editCountryVisitDate">
+                        </div>
+                        <input type="hidden" id="editCountryId">
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authToken = localStorage.getItem('authToken');
+    
+            if (authToken) {
+                console.log('AuthToken found:', authToken); // Debug statement
+    
+                fetch('http://localhost:3000/api/countries', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                })
+                .then(response => {
+                    console.log('Fetch response status:', response.status); // Debug statement
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch countries');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Countries data fetched:', data); // Debug statement
+    
+                    const container = document.getElementById('countriesContainer');
+                    if (data.msg) {
+                        container.innerHTML = `<p>${data.msg}</p>`;
+                    } else {
+                        data.forEach(country => {
+                            const visitDate = new Date(country.Visit_date);
+                            const formattedVisitDate = visitDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' }); // Format visit date to "Month Year"
+    
+                            const countryElement = document.createElement('div');
+                            countryElement.className = 'col-md-4';
+                            countryElement.innerHTML = `
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${country.nation}</h5>
+                                        <p class="card-text">Status: ${country.status}</p>
+                                        <p class="card-text">Visit Date: ${formattedVisitDate}</p>
+                                        <button class="btn btn-warning" onclick="editCountry(${country.Countryid}, '${country.nation}', '${country.status}', '${country.Visit_date}')">Edit</button>
+                                        <button class="btn btn-danger" onclick="deleteCountry(${country.Countryid})">Delete</button>
+                                    </div>
+                                </div>`;
+                            container.appendChild(countryElement);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching countries:', error); // Debug statement
+    
+                    const container = document.getElementById('countriesContainer');
+                    container.innerHTML = `<p>Error fetching countries. Please try again later.</p>`;
+                });
+            } else {
+                console.log('No authToken found, redirecting to index.html'); // Debug statement
+                window.location.href = 'index.html'; // Redirect to the original home page
+            }
+    
+            // Logout button functionality
+            document.getElementById('logoutButton').addEventListener('click', function() {
+                localStorage.removeItem('authToken');
+                window.location.href = 'index.html'; // Redirect to the original home page
+            });
+    
+            // Add country functionality
+            document.getElementById('addCountryForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+    
+                const name = document.getElementById('addCountryName').value;
+                const status = document.getElementById('addCountryStatus').value;
+                const visitDate = document.getElementById('addCountryVisitDate').value;
+                const authToken = localStorage.getItem('authToken');
+    
+                console.log('Adding country:', { name, status, visitDate }); // Debug statement
+    
+                fetch('http://localhost:3000/api/countries', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        nation: name,
+                        status: status,
+                        Visit_date: visitDate // Use visitDate directly as it is in "YYYY-MM-DD" format
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to add country');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Country added:', data); // Debug statement
+                    alert('Country added successfully');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error adding country:', error); // Debug statement
+                    alert('Failed to add country. Please try again.');
+                });
+            });
+    
+            // Edit country functionality
+            document.getElementById('editCountryForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+    
+                const id = document.getElementById('editCountryId').value;
+                const name = document.getElementById('editCountryName').value;
+                const status = document.getElementById('editCountryStatus').value;
+                const visitDate = document.getElementById('editCountryVisitDate').value;
+                const authToken = localStorage.getItem('authToken');
+    
+                console.log('Editing country:', { id, name, status, visitDate }); // Debug statement
+    
+                fetch(`http://localhost:3000/api/countries/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        nation: name,
+                        status: status,
+                        Visit_date: visitDate // Use visitDate directly as it is in "YYYY-MM-DD" format
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update country');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Country updated:', data); // Debug statement
+                    alert('Country updated successfully');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error updating country:', error); // Debug statement
+                    alert('Failed to update country. Please try again.');
+                });
+            });
+    
+            // Delete country functionality
+            window.deleteCountry = function(id) { // Make sure deleteCountry is globally accessible
+                const authToken = localStorage.getItem('authToken');
+    
+                console.log('Deleting country with id:', id); // Debug statement
+    
+                fetch(`http://localhost:3000/api/countries/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to delete country');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Country deleted:', data); // Debug statement
+                    alert('Country deleted successfully');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error deleting country:', error); // Debug statement
+                    alert('Failed to delete country. Please try again.');
+                });
+            };
+            
+            // Edit country modal pop-up
+            window.editCountry = function(id, name, status, visitDate) { // Make sure editCountry is globally accessible
+                console.log('Edit country data:', { id, name, status, visitDate }); // Debug statement
+    
+                document.getElementById('editCountryId').value = id;
+                document.getElementById('editCountryName').value = name;
+                document.getElementById('editCountryStatus').value = status;
+                document.getElementById('editCountryVisitDate').value = visitDate.substring(0, 10); // Adjust visit date format to match 'YYYY-MM-DD'
+    
+                new bootstrap.Modal(document.getElementById('editCountryModal')).show();
+            };
+        });
+    </script>
+    

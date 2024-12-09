@@ -1,55 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./css/flexbox.css">
-        <title> Build Fluid Layout</title>
-    </head>
-    <body>
-        <div class="main">
-        <header>
-            <nav> 
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about.html">About</a></li>
-                </ul>     
-            </nav>  
-        </header>
+<form id="registerForm" novalidate>
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Register</button>
+</form>
 
-        <div class="content">
-            <div class="center">
-                <h2>Login</h2>
-                <form novalidate>
-                    <label for="username"> 
-                        <span>Username:</span>
-                        <input id="username" type="text" placeholder="Username" />
-                    </label>
-                    <label for="email">
-                        <span>Email:</span>
-                        <input id="email" type="email" placeholder="Email" />
-                    </label>
-                    <label for="password">
-                        <span>Password:</span>            
-                        <input id="password" type="password" placeholder="Password" />
-                    </label>
-                    <button onclick="doRegister(event)">Register</button>
-                    <a href="./register.html">Register</a>
-                 </form>
-             </div>
-        </div>
+<script>
+    const registerForm = document.getElementById('registerForm');
 
-        <footer>
-            <nav>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about.html">About</a></li>
-                </ul>  
-            </nav>
-            <p> Author: <a href="https://github.com/betancd">Daniel Betancourt</a> </p>
-        </footer></div>
-    </body>
-    <script src="./src/service-helpers.js"></script>
-    <script src="./src/auth.service.js"></script>
-    <script src="./src/app.js"></script>
-    </html>
+    registerForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Registration failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            window.location.href = '/login.html';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Registration failed. Please try again.');
+        });
+    });
+</script>

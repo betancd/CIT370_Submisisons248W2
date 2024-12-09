@@ -1,6 +1,11 @@
 function _get(url) {
     return fetch(url, {
         method: 'GET'
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
     });
 }
 
@@ -11,6 +16,11 @@ function _post(url, data) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
     });
 }
 
@@ -21,5 +31,10 @@ function _put(url, data) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    })
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    });
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Navy memorial",
+  "name": "Navy-memorial",
   "version": "1.0.0",
   "description": "A website to show events and memories from my Navy career",
   "main": "index.js",
@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "mysql2": "^3.11.5",
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

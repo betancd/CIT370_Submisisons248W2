@@ -1,148 +1,154 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
-header{
-    height: 50px;
-    width: 100%;
-    background-color: navy
+/* Header Styles */
+header {
+  /* height: 50px;  No need for fixed height with Bootstrap */
+  width: 100%;
+  background-color: navy; 
 }
 
-nav {
-    display: block;
-}
-
+/* Navigation Styles */
 nav ul {
-    justify-content: center;
-    margin: 0 auto;
-    flex-direction: column;
-  }
+  justify-content: center;
+  margin: 0 auto;
+  /* flex-direction: column;  Let Bootstrap handle the navigation layout */ 
+  list-style: none;
+}
 
+nav ul li {
+  padding: 0 10px; 
+}
+
+/* Content Styles */
 h1 {
-    text-align: center;
-  }
+  text-align: center;
+}
 
 h3 {
-    text-align: left;
-  }
+  text-align: left;
+}
 
-div {
-    height: 0px;
-    line-height: 20px;
-    text-align: center;
-    border: 0px dashed #f69c55;
-  }
+.ports-visited {
+  list-style: disc inside;
+  padding: 20px;
+  margin: 0;
+  /* display: flex;  Bootstrap's list-group will handle the display */
+  /* flex-direction: column; */ 
+}
 
-  .ports-visited {
-    list-style: disc inside;  /* Remove bullet points */
-    padding: 20px;        
-    margin: 0;        
-    display: flex;
-    flex-direction: column; /* Make items stack vertically */
-  }
-
-  .ports-section {
-    text-align: left; 
-    width: fit-content; 
-    margin-left: 20px;  
-     margin-bottom: 20px;
+.ports-section { /* You might not need this class anymore */
+  text-align: left;
+  width: fit-content;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 .ports-visited li a {
-    color: #007bff;    
-    text-decoration: none; 
-    
-  }
-
-  .ports-visited li a:hover {
-    text-decoration: underline; /* Adds underline to hover */
-  }
-
-.content {
-    display: flex; 
+  color: #007bff;
+  text-decoration: none;
 }
 
-.center {
-    flex: 1;  
+.ports-visited li a:hover {
+  text-decoration: underline;
+}
+
+.content { /* You might not need this class anymore */
+  display: flex;
+}
+
+.center { /* You might not need this class anymore */
+  flex: 1;
 }
 
 .image-placeholder {
-    width: 300px; 
-    height: 400px; 
-    margin-right: 20px; 
-    margin-bottom: 20px; 
-    background-color: lightgray; 
-    border: 1px dashed #ccc;
+  width: 300px;
+  height: 400px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: lightgray;
+  border: 1px dashed #ccc;
+}
+
+.image-placeholder {
+  width: 300px; 
+  height: auto;  /* Allow the height to adjust automatically */
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: white; /* Set the background color to white */
+  border: 1px dashed #ccc; 
+  overflow: hidden; /* Prevent the image from overflowing */
 }
 
 .image-placeholder img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Contain the image within the container */
 }
 
 .command-history {
-    text-align: center;
-    margin-top: 20px;   
-    border-left: 2px solid navy;
-    padding-left: 20px;   
-  }
-  .command-history dt a { 
-    color: #007bff;       
-    text-decoration: none; 
-  }
-  
-  .command-history dt {
-    font-weight: bold; 
-    margin-bottom: 5px;
-  }
-
-  .command-history dt a:hover { /* Hover effect */
-    text-decoration: underline;  /* Adds underline on hover */
-  }
-
-li { 
-    padding: 0 10px 0 10px;
-    width: 50px;
+  text-align: center;
+  margin-top: 20px;
+  border-left: 2px solid navy;
+  padding-left: 20px;
 }
 
-ul{
-    list-style: none;
+
+.btn {
+  margin-bottom: 10px; 
 }
 
+.command-history dt a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.command-history dt {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.command-history dt a:hover {
+  text-decoration: underline;
+}
+
+/* Main Layout Styles */
 .main {
-    min-height: 100%;
-    width: 100%;
+  min-height: 100vh; 
+  width: 100%;
 }
 
+/* Footer Styles */
 footer {
-    position: absolute;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
-    background-color: navy
+  background-color: navy;
+  color: whitesmoke; 
+  padding: 20px; 
+  width: 100%;
+  /* Use flexbox for better footer content alignment */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-around; 
-    align-items: center;     
-    padding: 20px;           
-  }
+footer nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; 
+  display: flex; 
+}
 
-  footer nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-  }
+footer nav ul li {
+  margin-right: 20px;
+}
 
-  footer nav ul li {
-    margin-right: 20px;  
-  }
+/* Form Styles (if needed) */
+.form-group {
+  margin-bottom: 1rem; 
+}
 
-  .footer-content p {
-    color: whitesmoke;
-  }
+.btn {
+  margin-right: 0.5rem; 
+}
