@@ -3,6 +3,8 @@
 To properly run this program, it should create a datbase for you if it doesn't find one. 
 If for some reason it does not, create a mysql database named 'country_db'
 
+NPM START is all you should need to type in for both files to start the servers. 
+
 To have it show any data of value, register a new user. Login as that user and 
 then enter some countries, a visted or not visited value, and a date. It should then 
 display in the login and also on the home page in the "Ports and Countries Visted" section.
