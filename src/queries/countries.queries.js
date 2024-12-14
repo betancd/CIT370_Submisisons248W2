@@ -28,5 +28,8 @@ exports.UPDATE_COUNTRY = (userId, countryId, newValues) =>
 exports.DELETE_COUNTRY = (userId, countryId) =>
   `DELETE FROM countries WHERE user_id = ${userId} AND Countryid = ${countryId}`;
 
+
 // Get all ports visited (public access)
-exports.ALL_PORTS = () => `SELECT * FROM countries`;  // Assuming you have a ports_visited table
+exports.ALL_PORTS = () => `SELECT nation, YEAR(Visit_date) as year FROM countries WHERE Visit_date IS NOT NULL`;
+
+

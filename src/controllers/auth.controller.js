@@ -1,10 +1,9 @@
 const bcrypt = require('bcryptjs');
 const connection = require('../db-config');
 const {
-  GET_ME_BY_USERNAME,
   GET_ME_BY_USERNAME_WITH_PASSWORD,
   INSERT_NEW_USER,
-} = require('../queries/user.queries');
+} = require('../queries/user.queries');  // Import from user.queries
 const query = require('../utils/query');
 const {
   refreshTokens,
@@ -14,47 +13,47 @@ const {
 } = require('../utils/jwt-helpers');
 
 exports.register = async (req, res) => {
-  const passwordHash = bcrypt.hashSync(req.body.password, 10);
-  const params = [req.body.username, req.body.email, passwordHash];
-
   try {
+    console.log("Register function called");
+    console.log("Request body:", req.body);
+
+    // Hash the password before saving it to the database
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
     const con = await connection();
+    const result = await query(
+      con, 
+      INSERT_NEW_USER, 
+      [req.body.username, req.body.email, hashedPassword]
+    ); 
 
-    const user = await query(con, GET_ME_BY_USERNAME, [req.body.username]);
-
-    if (user.length === 1) {
-      return res.status(403).json({ msg: 'User already exists!' });
+    if (result.affectedRows === 1) {
+      res.json({ msg: 'New user created!' });
+    } else {
+      res.status(500).json({ msg: 'Could not register user.' });
     }
-
-    await query(con, INSERT_NEW_USER, params);
-
-    res.json({ msg: 'New user created!' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: 'Could not register user. Please try again later.' });
+    res.status(500).json({ msg: 'Could not register user.' });
   }
 };
 
 exports.login = async (req, res) => {
   try {
     const con = await connection();
-
     const user = await query(con, GET_ME_BY_USERNAME_WITH_PASSWORD, [req.body.username]);
 
     if (user.length === 1) {
       const validPass = await bcrypt.compare(req.body.password, user[0].password);
 
       if (!validPass) {
-        return res.status(400).json({ msg: 'Invalid password!' });
+        return res.status(400).json({ auth: false, msg: 'Invalid password!' });
       }
 
       const accessToken = generateAccessToken(user[0].user_id, { expiresIn: '1h' });
       const refreshToken = generateRefreshToken(user[0].user_id, { expiresIn: '1d' });
 
       refreshTokens.push(refreshToken);
-
-      // Remove or comment out the debug statement below
-      // console.log('Login successful, token generated:', accessToken);
 
       return res.json({
         auth: true,
@@ -65,14 +64,13 @@ exports.login = async (req, res) => {
         refresh_token: refreshToken,
       });
     } else {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ auth: false, msg: 'Invalid credentials' });
     }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 
 exports.token = (req, res) => {
   const refreshToken = req.body.token;

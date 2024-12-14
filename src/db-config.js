@@ -13,17 +13,41 @@ const user = process.env.DB_USER || 'root';
 const password = process.env.DB_PASS || 'password';
 
 // Get the Database from Environment or use default
-const database = process.env.DB_DATABASE || 'school_stuff'; /////////////
+const database = process.env.DB_DATABASE || 'country_db';
 
-// Create the connection with required details
-const connection = async () =>
+// Create the connection to MySQL server (without specifying the database initially)
+const connectionToServer = async () =>
+  new Promise((resolve, reject) => {
+    const con = mysql.createConnection({
+      host,
+      user,
+      password,
+    });
+
+    con.connect((err) => {
+      if (err) {
+        console.error('Error connecting to the MySQL server:', err);
+        return reject(err);
+      }
+      console.log('Connected to the MySQL server');
+      resolve(con);
+    });
+  });
+
+// Function to create the database if it doesn't exist
+const createDatabaseIfNotExists = async (con) => {
+  return query(con, `CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+};
+
+// Create the connection with the database
+const connectionToDatabase = async () =>
   new Promise((resolve, reject) => {
     const con = mysql.createConnection({
       host,
       user,
       password,
       database,
-    }); 
+    });
 
     con.connect((err) => {
       if (err) {
@@ -38,9 +62,20 @@ const connection = async () =>
 // Initialize the database and create tables if they do not exist
 (async () => {
   try {
-    const _con = await connection();
-    const userTableCreated = await query(_con, CREATE_USERS_TABLE);
-    const countriesTableCreated = await query(_con, CREATE_COUNTRIES_TABLE);
+    // Connect to MySQL server
+    const conToServer = await connectionToServer();
+    // Create the database if it doesn't exist
+    await createDatabaseIfNotExists(conToServer);
+    console.log(`Database '${database}' checked and created if not existing`);
+
+    // Close the server connection and connect to the specific database
+    conToServer.end();
+
+    // Connect to the specific database
+    const conToDatabase = await connectionToDatabase();
+    // Create tables if they do not exist
+    const userTableCreated = await query(conToDatabase, CREATE_USERS_TABLE);
+    const countriesTableCreated = await query(conToDatabase, CREATE_COUNTRIES_TABLE);
 
     if (userTableCreated && countriesTableCreated) {
       console.log('Tables Created!');
@@ -50,4 +85,4 @@ const connection = async () =>
   }
 })();
 
-module.exports = connection;
+module.exports = connectionToDatabase;

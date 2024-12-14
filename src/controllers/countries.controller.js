@@ -31,7 +31,7 @@ exports.getAllCountries = async (req, res) => {
 
 // Get all ports visited (public access)
 exports.getAllPortsVisited = async (req, res) => {
-  console.log("getAllPortsVisited called"); // Debug statement
+  console.log("getAllPortsVisited called");
 
   try {
     const con = await connection().catch((err) => {
@@ -48,13 +48,15 @@ exports.getAllPortsVisited = async (req, res) => {
       return res.status(200).json({ msg: 'No ports visited.' });
     }
 
-    console.log("Fetched ports visited:", ports); // Debug statement
-    res.json(ports);
+    console.log("Fetched ports visited:", ports);
+    res.json(ports); // Ensure the response is JSON
   } catch (error) {
     console.error("Server error:", error);
     res.status(500).json({ msg: 'Server error' });
   }
 };
+
+
 
 // Get a single country by id
 exports.getCountry = async (req, res) => {
@@ -140,7 +142,7 @@ exports.updateCountry = async (req, res) => {
   const values = _buildValuesString(req);
   const result = await query(
     con, 
-    UPDATE_COUNTRY(req.user.id, req.params.Countryid, values)
+    UPDATE_COUNTRY(req.user.id, req.params.Countryid, values) // Ensure parameter name matches
   ).catch(serverError(res));
      
   if (result.affectedRows !== 1) {
@@ -161,7 +163,7 @@ exports.deleteCountry = async (req, res) => {
 
   const result = await query(
     con,
-    DELETE_COUNTRY(req.user.id, req.params.Countryid)
+    DELETE_COUNTRY(req.user.id, req.params.Countryid) // Ensure parameter name matches
   ).catch(serverError(res));
 
   if (result.affectedRows !== 1) {

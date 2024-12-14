@@ -20,7 +20,7 @@ app.use(cors());
 
 // Register API routes
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/user', userRoutes); // Ensure this path is correct
 app.use('/api/countries', countriesRoutes);
 
 // Handle 404 requests
