@@ -78,8 +78,6 @@ exports.getCountry = async (req, res) => {
 };
 
 // Create a new country
-// Create a new country
-// Create a new country
 exports.createCountry = async (req, res) => {
   console.log("createCountry called"); // Debug statement
   const user = req.user;
