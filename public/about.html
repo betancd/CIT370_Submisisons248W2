@@ -1,85 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/styles.css" />
-    <title>About</title>
-    <style>
-        .main {
-            padding: 20px;
-        }
-        .header {
-            background-color: #343a40;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .content {
-            margin-top: 20px;
-        }
-        .content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .content p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            text-align: justify;
-        }
-        .footer {
-            background-color: #343a40;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .navbar-nav {
-            justify-content: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/styles.css">
+  <title>About</title>
+  <style>
+    .main {
+      padding: 20px;
+    }
+    .header {
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .footer {
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #343a40;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
-    <div class="main wrapper">
-        <header class="header">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-dark">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+  <div class="main">
+    <header class="header">
+      <h1>About</h1>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="./index.html">Career</a></li>
+        </ul>
+      </nav>
+    </header>
 
-        <div class="container content">
-            <div class="row">
-                <div class="col-md-12"> 
-                    <h1>Welcome to My Navy Page!</h1>
-                    <p>This page is dedicated to a lifetime of adventure! It is intended to display items from a 22-year career, but this is just the beginning.</p>
-                    <p>The functionality is simple: log in and edit ports visited. One day, it might feature much more, including photos, facts, and more!</p>
-                </div>
-            </div>
-        </div>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <nav class="navbar navbar-expand-lg navbar-dark">
-                            <ul class="navbar-nav">
-                                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-md-6 text-md-end">
-                        <p>Author: <a href="https://github.com/betancd">Daniel Betancourt</a></p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+    <div class="container mt-4">
+      <div class="content">
+        <h2>About My Naval Career Page</h2>
+        <p>Welcome to my Naval Career page! This site is dedicated to showcasing the highlights of my service in the United States Navy. Here, you will find detailed accounts of the ports I've visited, my command history, and significant milestones in my career. Through this page, I hope to share my experiences and provide insight into life in the Navy. Thank you for visiting, and I hope you enjoy learning about my journey.</p>
+      </div>
     </div>
+
+    <footer class="footer mt-4">
+      <p>Author: <a href="https://github.com/betancd">Daniel Betancourt</a></p>
+    </footer>
+  </div>
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
